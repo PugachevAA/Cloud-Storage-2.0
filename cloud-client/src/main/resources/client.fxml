@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="528.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientController">
+   <children>
+      <ListView fx:id="clientListView" layoutX="14.0" layoutY="14.0" prefHeight="501.0" prefWidth="222.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
+
+      <ListView fx:id="serverListView" layoutX="378.0" layoutY="20.0" prefHeight="508.0" prefWidth="222.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+
+      <Button layoutX="241.0" layoutY="166.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="&lt;" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="230.0" />
+
+      <Button fx:id="sendButton" layoutX="316.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#sendFile" prefHeight="50.0" prefWidth="50.0" text="&gt;" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="230.0" />
+
+      <Label layoutX="458.0" layoutY="14.0" text="Облако" />
+
+      <Label layoutX="113.0" layoutY="14.0" text="ПК" />
+      <Button fx:id="refresh" onMouseClicked="#refreshServerListView" layoutX="246.0" layoutY="288.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="107.0" text="Refresh" />
+   </children>
+</AnchorPane>

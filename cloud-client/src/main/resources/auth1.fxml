@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="163.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AuthController">
+   <children>
+      <Button fx:id="okButton" layoutX="20.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#authAction" prefHeight="25.0" prefWidth="150.0" text="OK" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+
+      <Button fx:id="exitButton" layoutX="199.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="25.0" prefWidth="150.0" text="Exit" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+
+      <TextField fx:id="loginTextField" layoutX="14.0" layoutY="14.0" prefHeight="30.0" promptText="login" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+
+      <TextField fx:id="passTextField" accessibleText="Pass" layoutX="20.0" layoutY="60.0" prefHeight="30.0" promptText="password" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+
+      <Hyperlink fx:id="logRegLink" focusTraversable="false" layoutX="278.0" layoutY="90.0" onMouseClicked="#checkLogReg" text="Register" underline="true" AnchorPane.rightAnchor="20.0" />
+
+      <TextField fx:id="emailTextField" layoutX="21.0" layoutY="100.0" prefHeight="30.0" prefWidth="310.0" promptText="e-mail" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+   </children>
+</AnchorPane>
