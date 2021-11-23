@@ -3,19 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="528.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientController">
    <children>
-      <ListView fx:id="clientListView" layoutX="14.0" layoutY="14.0" prefHeight="501.0" prefWidth="222.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
+      <Button fx:id="requestButton" layoutX="244.0" layoutY="196.0" mnemonicParsing="false" onMouseClicked="#requestFile" prefHeight="80.0" prefWidth="50.0" text="&lt;" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="200.0" />
+      <Button fx:id="sendButton" layoutX="316.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#sendFile" prefHeight="80.0" prefWidth="50.0" text="&gt;" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="200.0" />
 
-      <ListView fx:id="serverListView" layoutX="378.0" layoutY="20.0" prefHeight="508.0" prefWidth="222.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="94.0" layoutY="14.0" text="Computer" />
+      <ListView fx:id="clientListView" layoutX="14.0" layoutY="14.0" prefHeight="412.0" prefWidth="222.0" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
+      <Button fx:id="newFolderClient" onMouseClicked="#newFolderOnClient" layoutX="10.0" layoutY="416.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="New folder" AnchorPane.bottomAnchor="56.0" />
+      <Button fx:id="deleteClient" onMouseClicked="#deleteOnClient" layoutX="129.0" layoutY="414.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="Delete" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="126.0" />
+      <Button fx:id="refreshClientList" onAction="#updateClientListView" layoutX="21.0" layoutY="460.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="222.0" text="Refresh" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
 
-      <Button layoutX="241.0" layoutY="166.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="&lt;" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="230.0" />
 
-      <Button fx:id="sendButton" layoutX="316.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#sendFile" prefHeight="50.0" prefWidth="50.0" text="&gt;" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="230.0" />
+      <Label layoutX="468.0" layoutY="14.0" text="Cloud" />
+      <ListView fx:id="serverListView" onMouseClicked="#goTo" layoutX="378.0" layoutY="20.0" prefHeight="508.0" prefWidth="222.0" AnchorPane.bottomAnchor="102.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+      <Button fx:id="newFolderServer" onMouseClicked="#NewFolderOnServer" layoutX="368.0" layoutY="414.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="New folder" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="126.0" />
+      <Button fx:id="deleteServer" onMouseClicked="#deleteFromServer" layoutX="474.0" layoutY="414.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="106.0" text="Delete" AnchorPane.bottomAnchor="56.0" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="refreshServer" layoutX="10.0" layoutY="450.0" mnemonicParsing="false" onMouseClicked="#refreshServerListView" prefHeight="36.0" prefWidth="222.0" text="Refresh" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
 
-      <Label layoutX="458.0" layoutY="14.0" text="Облако" />
-
-      <Label layoutX="113.0" layoutY="14.0" text="ПК" />
-      <Button fx:id="refresh" onMouseClicked="#refreshServerListView" layoutX="246.0" layoutY="288.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="107.0" text="Refresh" />
    </children>
 </AnchorPane>

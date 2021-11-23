@@ -1,10 +1,11 @@
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-@AllArgsConstructor
-public class CommandObject implements Serializable {
+public class CommandObject extends AbstractMessage {
     private String command;
+
+    public CommandObject(String command) {
+        setType(CommandType.COMMAND);
+        this.command = command;
+    }
 }

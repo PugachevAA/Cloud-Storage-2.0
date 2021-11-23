@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="84.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewFolderController">
+   <children>
+      <Button onMouseClicked="#create" layoutX="14.0" layoutY="54.0" mnemonicParsing="false" text="Create" />
+      <Button onMouseClicked="#cancel" layoutX="156.0" layoutY="54.0" mnemonicParsing="false" text="Cancel" />
+      <TextField fx:id="nameTextField" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="201.0" />
+   </children>
+</AnchorPane>

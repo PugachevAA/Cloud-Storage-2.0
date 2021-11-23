@@ -1,15 +1,16 @@
 import javafx.application.Platform;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,53 +19,37 @@ public class ClientController implements Initializable {
 
     public ListView serverListView;
     public ListView clientListView;
-    public Button refresh;
 
     private File clientPath;
-    private File serverPath;
-
-    private File[] clientFilesList;
-    private File[] serverFilesList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        clientPath = new File("clientroot");
-
+        clientPath = App.getClientPath();
         if (!clientPath.exists()) {
             clientPath.mkdir();
         }
-        clientFilesList = clientPath.listFiles();
-        for (File file : clientFilesList) {
-            clientListView.getItems().add(file.getName());
-        }
+        updateClientListView();
         App.setClientController(this);
+        App.getNetwork().writeAndFlush(new CommandObject("/getpath"));
     }
 
-    public void sendFile(MouseEvent mouseEvent) throws IOException {
+    public void sendFile() throws Exception {
         String fileName = clientListView.getSelectionModel().getSelectedItem().toString();
+
         if (fileName.isEmpty()) {
             return;
         }
 
         File sendingFile = new File(clientPath, fileName);
-        long size = sendingFile.length();
 
         FileInputStream fis = new FileInputStream(sendingFile);
 
-
         byte[] buffer = new byte[8192];
-        long forReadLen = size;
+        long forReadLen = sendingFile.length();;
         int readBytes;
         int packageNum = 1;
         while (true) {
-            FileObject fo = FileObject.builder()
-                    .fileName(fileName)
-                    .destPath(App.getUser().getLogin())
-                    .size(size)
-                    .n(0)
-                    .isFirstPackage(packageNum == 1)
-                    .isLastPackage(false)
-                    .build();
+            FileObject fo = new FileObject(sendingFile.toPath());
             readBytes = fis.read(buffer);
             forReadLen = forReadLen - readBytes;
             if (readBytes == -1) {
@@ -73,6 +58,9 @@ public class ClientController implements Initializable {
             }
             if (forReadLen == 0) {
                 fo.setLastPackage(true);
+            }
+            if (fo.getN() > 1) {
+                fo.setFirstPackage(false);
             }
             fo.setBytes(buffer);
             fo.setN(packageNum);
@@ -87,13 +75,58 @@ public class ClientController implements Initializable {
     public void writeToServerListView(List<String> files) {
         Platform.runLater(() -> {
             serverListView.getItems().clear();
-            for (String file : files) {
-                serverListView.getItems().add(file);
-            }
+            serverListView.getItems().addAll(files);
+        });
+    }
+    public void updateClientListView() {
+        String[] files = App.getClientPath().list();
+        Platform.runLater(() -> {
+            clientListView.getItems().clear();
+            clientListView.getItems().addAll(files);
         });
     }
 
-    public void refreshServerListView(MouseEvent mouseEvent) {
-        App.getNetwork().writeAndFlush("/getpath");
+    public void refreshServerListView() {
+        App.getNetwork().writeAndFlush(new CommandObject("/getpath"));
+    }
+
+    public void requestFile() {
+        String fileName = serverListView.getSelectionModel().getSelectedItem().toString();
+        if (fileName.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText(null);
+            alert.setContentText("Выберите файл");
+            alert.showAndWait();
+        } else {
+            App.getNetwork().writeAndFlush(new FileRequest(fileName));
+        }
+    }
+
+    public void newFolderOnClient() throws Exception {
+        App.openNewFolderStage(false);
+    }
+
+    public void deleteOnClient() throws Exception {
+        Files.deleteIfExists(Paths.get(App.getClientPath().toString(), clientListView.getSelectionModel().getSelectedItem().toString()));
+        updateClientListView();
+    }
+
+    public void NewFolderOnServer() throws Exception {
+        App.openNewFolderStage(true);
+    }
+
+    public void deleteFromServer() {
+        String fileName = serverListView.getSelectionModel().getSelectedItem().toString();
+
+        if (!fileName.isEmpty()) {
+            App.getNetwork().writeAndFlush(new DeleteObject(fileName));
+        }
+    }
+
+    public void goTo(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 2) {
+            log.debug("двойной клик еееесть");
+        }
     }
 }

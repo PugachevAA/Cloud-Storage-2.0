@@ -3,7 +3,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -53,7 +52,7 @@ public class AuthController implements Initializable {
 
     }
 
-    public void checkLogReg(MouseEvent mouseEvent){
+    public void checkLogReg(){
 
         if (!isNewUser) {
             App.stage.setHeight(240);
@@ -74,12 +73,12 @@ public class AuthController implements Initializable {
         }
     }
 
-    public void exit(MouseEvent mouseEvent) {
+    public void exit() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
-    public void authAction(MouseEvent actionEvent){
+    public void authAction(){
         App.getUser().setLogin(loginTextField.getText());
         App.getUser().setEmail(emailTextField.getText());
         App.getUser().setPassword(passTextField.getText());

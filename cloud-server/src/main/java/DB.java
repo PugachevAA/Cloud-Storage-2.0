@@ -7,7 +7,7 @@ public class DB {
     private Connection sqlConnection;
     private Statement statement;
 
-    public void getConnection() throws SQLException {
+    public void getConnection() {
         try {
             sqlConnection = DriverManager.getConnection(Config.SQL_URL, Config.SQL_USER, Config.SQL_PASS);
             statement = sqlConnection.createStatement();
