@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Network {
 
-    private static final int PORT = 8989;
-
     public Network() {
         EventLoopGroup auth = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
@@ -28,13 +26,12 @@ public class Network {
                             channel.pipeline().addLast(
                                     new ObjectEncoder(),
                                     new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                                    new FileHandler(),
-                                    new CommandHandler(),
+                                    new AbstractHandler(),
                                     new AuthHandler()
                             );
                         }
                     }));
-            final ChannelFuture future = bootstrap.bind(PORT).sync();
+            final ChannelFuture future = bootstrap.bind(Config.PORT).sync();
             log.debug("server. Started...");
             future.channel().closeFuture().sync();
         } catch (Exception e) {

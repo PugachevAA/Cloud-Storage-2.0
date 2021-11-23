@@ -1,25 +1,26 @@
+import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
 
 @Slf4j
 public class Server {
     private static Network network;
     private static DB db;
-    private static FileStorage fs;
+    private static HashMap<String, UserObject> activeUsers = new HashMap<>();
 
     public static void main(String[] args) {
 
-        fs = new FileStorage();
+        new FileStorage();
         db = new DB();
         network = new Network();
     }
 
+    public static DB getDB() {return db;}
 
+    public static HashMap<String, UserObject> getActiveUsers() {return activeUsers;}
 
-    public static Network getNetwork() {
-        return network;
-    }
-
-    public static DB getDB() {
-        return db;
+    public static String getCurrentUserLogin (ChannelHandlerContext ctx) {
+        return activeUsers.get(ctx.channel().id().toString()).getLogin();
     }
 }

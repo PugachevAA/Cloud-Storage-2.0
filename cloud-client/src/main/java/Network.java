@@ -35,8 +35,7 @@ public class Network {
                                 socketChannel.pipeline().addLast(
                                         new ObjectEncoder(),
                                         new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                                        new PathHandler(),
-                                        new CommandHandler()
+                                        new AbstractHandler()
                                         );
                             }
                         });
